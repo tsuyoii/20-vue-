@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件中的数据存放问题</title>
+  <!-- 组件不能直接访问使用vue实例中的数据，因此猜测，组件中应该能存放自己的data,
+  事实上，处了拥有自己的data,组件中还有自己的methods等 -->
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <conc2></conc2>
+    <conc1></conc1>
+  </div>
+
+  <!-- template标签方式， -->
+  <template id="cpn2">
+    <div>
+      <h2>{{title}}</h2>
+      <p>呵呵呵呵呵</p>
+    </div>
+  </template>
+
+
+  <script>
+    // 1、全局组件模板绑定方式
+    Vue.component('conc1',{
+      template:'#cpn1',
+      data(){
+        return{}
+      }
+    })
+
+    const app = new Vue({
+      el:'#app',
+      // 注意，组件不能直接访问Vue实例中的data，但可以访问自己内部的data
+      // 且组件内的data不再是一个对象，而是一个方法函数，且必须有返回值
+      components:{
+        'conc2':{
+          template:'#cpn2',
+          data(){
+            return{
+              title:'12345'
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

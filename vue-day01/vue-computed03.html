@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue的计算属性的setter和getter</title>
+    <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h2>{{fullname}}</h2>
+    </div>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                firstname:'fiber',
+                lastname:'laty'
+            },
+            // computed的完整写法是有setter和getter方法的
+            // 通过控制台可以修改app.fullname='go lymin'
+            computed:{
+                fullname:{
+                    set:function(newValue){
+                        const name = newValue.split(' ');
+                        this.firstname = name[0]
+                        this.lastname = name[1]
+                     },
+                    get:function(){
+                        return this.firstname + ' ' + this.lastname
+                    }
+                }
+                //但由于计算属性不希望随意更改，所以set方法通常为空，只有get方法，即为只读属性,省略set方法
+                // fullname:{
+                //     get:function(){
+                //         return this.firstname + ' ' + this.lastname
+                //     }
+                // }
+                //继续简写
+                // fullname:function(){
+                //     return this.firstname + ' ' + this.lastname
+                // }
+            }
+        })
+    </script>
+</body>
+</html>

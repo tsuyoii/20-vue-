@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <cpn><span>我是替换的</span></cpn>
+    <!-- 展示默认元素 -->
+    <cpn></cpn>
+    <cpn></cpn>
+    <cpn></cpn>
+    <cpn>
+      <span>同时展示多个元素</span>
+      <a href="baidu.com">百度一下</a>
+    </cpn>
+  </div>
+
+  <template id="cpn">
+    <div>
+      <h2>我是子组件</h2>
+      <!-- 1、slot可以理解为占位符，当组件需要复用时，共用的部分提取出来
+      不同的部分就用slot占位，到了具体使用组件时直接替换 -->
+      <slot></slot>
+
+      <!--2、当有许多都相同，但又不是全都相同时，可以在slot中写元素，这时是作为默认元素
+      当在调用子组件时写了其他元素时，就展示其他元素  -->
+      <!-- 如下：默认展示一个button -->
+      <slot><button>我是默认的</button></slot>
+
+      <!-- 3、还可以同时展示多个元素在slot中 -->
+    </div>
+  </template>
+
+  <script>
+    const app = new Vue({
+      el:'#app',
+      data:{},
+      components:{
+        cpn:{
+          template:'#cpn'
+        }
+      }
+    })
+  </script>
+</body>
+</html>

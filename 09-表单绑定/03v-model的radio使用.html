@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>radio（单选框）绑定</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 为了使男女选项保持互斥，需要加一个相同的name，使提交表单时不是交这个就是交那个，不会两个同时提交 -->
+    <!-- <label for="male">
+      <input type="radio" id="male" name="sex" value="男">男
+    </label>
+    <label for="female">
+      <input type="radio" id="female" name="sex" value="女">女
+    </label> -->
+
+
+    <!-- 为了绑定数据，需要v-model指令，v-model绑定值也必须相同来保证互斥
+          这时的name可要可不要 -->
+          <label for="male">
+            <input type="radio" id="male" value="男" v-model="sex">男
+          </label>
+          <label for="female">
+            <input type="radio" id="female" value="女" v-model="sex">女
+          </label>
+          <h2>您选择的性别是：{{sex}}</h2>
+  </div>
+  <script>
+    const app = new Vue({
+      el:'#app',
+      data:{
+        // 当sex设值时，radio有初始值
+        sex:'男'
+      }
+    })
+  </script>
+</body>
+</html>

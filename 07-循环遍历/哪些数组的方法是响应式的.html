@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>哪些数组的方法是响应式的</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="item in letters" >{{item}}</li>
+    </ul>
+    <button @click="btnClick">按钮</button>
+  </div>
+  <script>
+    const app = new Vue({
+      el:'#app',
+      data:{
+        letters:['a','cc','w','ff','h']
+      },
+      methods:{
+        btnClick(){
+          //响应式的方法，数据响应是实时的
+          // 1、push方法:在最后一行添加，可添加多个,有的方法参数为（...）表示任意个参数，就像java中的args
+          this.letters.push('aaa')
+          this.letters.push('aaaa','bbbb','cccc')
+          //2、pop方法：从最后一行删除
+          this.letters.pop()
+          //3、shift方法：删除数组中的第一个元素
+          this.letters.shift()
+          //4、unshift方法：在数组最前面添加元素,可同时添加多个
+          this.letters.unshift('l')
+          this.letters.unshift('unshift','方法','increse')
+          //5、splice方法：删除元素/插入元素/替换元素
+          //.splice(待删除起始元素位置,删除个数,'待添加元素')
+          // 从第2个元素开始，删除1个元素，并紧随其后添加三个元素''e','ff','ty'
+          this.letters.splice(2,1,'e','ff','ty')
+          //6、sort()方法:排序
+          this.letters.sort()
+          //7、reverse():逆序输出
+          this.letters.reverse()
+          //8、vue中的一个方法
+          //set(要修改的对象，索引值，修改后的值)
+          // 控制台输入app.$set(app.letters,2,'mm')可以实时更改元素this.letters[2]
+          Vue.set(this.letters,0,'1234231') 
+
+
+
+          //非响应式:例如在控制台输入app.letters[1] = 'kk',
+          // 不会立即渲染在渲染器dom上，但是在控制台查看时数据确实已被更改
+          //注意：通过索引值修改数组中的元素，不能得到实时的响应，一般不推荐使用
+          this.letters[0] = 'cccccbbccerfsavf';
+        }
+      }
+    })
+  </script>
+</body>
+</html>

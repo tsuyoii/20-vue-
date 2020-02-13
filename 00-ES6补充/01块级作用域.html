@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>块级作用域，let与var的比较</title>
+</head>
+<body>
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <button>按钮4</button>
+    <button>按钮5</button>
+    <script>
+        // 1.变量作用域：变量可用，起作用的范围
+        //一个花括号表示一个代码块
+        // {
+        //     var name = 'konan'
+        //     console.log(name);
+        // }
+        // console.log(name);//能展示，因为var声明的变量没有块级作用域，代码块对变量没有限制作用，即使在外面也能使用
+
+        //2.没有块级作用域引起的问题,if的块级
+        //if是没有块级作用域的
+        // var func;
+        // if(true){
+        //     var name = 'why'
+        //     func = function(){
+        //         console.log(name);
+        //     }
+        //     func()//why
+        // }
+        // name = 'kobe'  //在if代码块外部改变name变量，结果也改变，但我们期望的结果是执行的25行的代码，打印的应该为why
+        // func()//kobe
+        // console.log(name)//kobe
+
+        //3.没有块级作用域引起的问题：for的块级
+        //for也是没有块级作用域的
+        // var btns = document.getElementsByTagName('button')
+        // for(var i=0;i<btns.length;i++){
+        //     btns[i].addEventListener('click',function(){
+        //         console.log('第'+ i +'个按钮被点击了');
+        //     })
+        // }
+
+        //相当于5次循环，由于for没有块级作用域，，大家共用一个变量i,每次改i都会把所有块中的i都改了
+        // { i=1
+        //      btns[i].addEventListener('click',function(){
+        //          console.log('第'+ i +'个按钮被点击了');
+        //      })
+        // }
+        // { i=1
+        //      btns[i].addEventListener('click',function(){
+        //          console.log('第'+ i +'个按钮被点击了');
+        //      })
+        // }
+        // { i=1
+        //      btns[i].addEventListener('click',function(){
+        //          console.log('第'+ i +'个按钮被点击了');
+        //      })
+        // }
+        // { i=1
+        //      btns[i].addEventListener('click',function(){
+        //          console.log('第'+ i +'个按钮被点击了');
+        //      })
+        // }
+        // { i=1
+        //      btns[i].addEventListener('click',function(){
+        //          console.log('第'+ i +'个按钮被点击了');
+        //      })
+        // }
+        //发现无论点击哪个按钮都提示第5个按钮被点击了，因为for没有块级作用域，i是一个全局变量，且
+        //5个内部函数都指向了同一个i
+
+
+
+
+
+        //修改方法，法一：用let替换var(只有ES6可以，ES5只能使用法二，只有function有作用域)  法二：使用闭包
+        // 使用闭包
+        var btns = document.getElementsByTagName('button');
+        for(var i=0;i<btns.length;i++){
+            //函数是一个作用域，所以使用闭包，调用i时不会因为外部for循环遍历改动了i的值而造成影响，在闭包这整个作用域中，
+            // 内部的i与外部的改变无关,函数内部的i无论别人（for）在外面怎么改，我的i还是我的i
+            (function(num){//这里的i相当于函数function的形参，只在函数内部起作用，函数内部的i也只与这里的i有关，与for中的i无关，而这里的i是传入函数时的i,即function结束背后的那个i
+                btns[i].addEventListener('click',function(){
+                    console.log('第'+ num+'个按钮被点击了');
+                })
+            })(i)//这里的i是随着循环变动的，但函数内部的i是传入这个函数时的i，即为此时的i,传入以后，无论怎么改变，也不会影响到函数内部的i
+        }
+        //相当于for中的i控制function后的i,有5次循环，每次function后的i获取值后即传给num,此时num就与for中（即外部）的i变化无关
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue的计算属性</title>
+    <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h2>{{firstname}} {{lastname}}</h2>
+        <h2>{{firstname + " " + lastname}}</h2>
+
+        <!-- 用methods方法进行简洁化 -->
+        <h2>{{getFullname()}}</h2>
+
+        <!-- 用计算属性来简化 -->
+        <h2>{{fullName}}</h2>
+    </div>
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data:{
+                firstname:'ml',
+                lastname:'oyou'
+            },
+            // 计算属性通常的命名方式不加get，get表示方法，计算属性中的命名通常为名词，属性
+            computed:{
+                fullName:function(){
+                    return this.firstname + ' ' + this.lastname
+                }
+            },
+            methods:{
+                getFullname:function(){
+                    return this.firstname + ' ' + this.lastname
+                }
+            }
+        })
+    </script>
+</body>
+</html>

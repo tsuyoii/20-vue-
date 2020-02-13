@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 遍历数组，直接取元素即可 -->
+    <ul>
+      <li v-for="item in movies">{{item}}</li>
+    </ul>
+    <ul>
+      <li v-for="(item,index) in movies">{{index+1}}.{{item}}</li>
+    </ul>
+
+
+
+    <!-- 遍历对象，对象包含了key和value -->
+    <ul>
+      <!-- 取出的是对象的value值 -->
+      <li v-for="v in obj">{{v}}</li>
+    </ul>
+    <ul>
+      <li v-for="(value,key,index) in obj">{{index+1}}.{{key}}:{{value}}</li>
+    </ul>
+  </div>
+  <script>
+    const app = new Vue({
+      el:'#app',
+      data:{
+        movies:['火影忍者','名偵探柯南','排球少年'],
+        obj:{
+          name:'konan',
+          age:17,
+          height:1.88
+        }
+      }
+    })
+  </script>
+</body>
+</html>

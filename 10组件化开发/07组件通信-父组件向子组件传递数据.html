@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件通信-父组件向子组件传递数据</title>
+  <script src="../scripts/vue.min.js"></script>
+  <!-- 当要展示一些数据信息时，需要最外层组件向服务器发送请求
+  获得数据后向子组件传数据
+      1、父组件通过props(properties:属性)向子组件传递数据
+      2、子组件通过v-bind绑定属性
+      3、子组件向父组件通过$emit（发射） Events(自定义事件)来传递通信 -->
+</head>
+<body>
+  <!-- 父组件模板 -->
+  <div id="app">
+    <!-- 3、子组件在父组件中要有使用:这里cpn是子组件，cmessage是子组件中的属性(props声明的)，通过v-bind绑定实例中的变量message
+      绑定这里通过v-bind将实例data中的变量赋给子组件的props,注：若不加v-bind:内部会将message等看做字符串赋值
+    不会视为变量去data中寻找 -->
+    <cpn v-bind:cmessage="message" :cmovies="movies"></cpn>
+  </div>
+
+  <!-- 子组件模板 -->
+  <template id="cpn">
+    <div>
+      <h2>你好</h2>
+      <p>我是子组件</p>
+      <!-- 4、子组件使用父组件传来的数据 -->
+      <p>{{cmessage}}</p>
+      <p>{{cmovies}}</p>
+    </div>
+  </template>
+
+  <script>
+    const conchild ={
+      template:'#cpn',
+    //  2、props可以是对象，也可以是数组
+      // props:['cmessage','cmovies']
+      props:{
+        // cmessage:String,
+        // cmovies:Array
+
+        cmessage:{
+          // 类型限制，提供默认值例如当没有传message,即第3步没有:cmessage="message"时自动赋予默认值,以及使用时是否必须绑定该属性
+          type:String,
+          default:'我是默认数',
+          required:true
+        },
+        cmovies:{
+          // 数组类型默认值必须以函数值返回形式来写
+          type:Array,
+          default(){
+            return []
+          }
+        }
+      }
+    }
+
+    // Vue实例也可以看做一个组件，这里就相当于cpn的父组件
+    const app = new Vue({
+      el:'#app',
+      data:{
+        // 1、这里的数据无法直接在子组件中使用，需要通过props进行传值
+        message:'我是实例',
+        movies:['火影','小排球','月刊少女','暗杀教室']
+      },
+      components:{
+        ///这里的cpn可以加单引号，也可以不加，还可以使用对象增强语法
+        cpn:conchild
+      }
+    })
+  </script>
+</body>
+</html>

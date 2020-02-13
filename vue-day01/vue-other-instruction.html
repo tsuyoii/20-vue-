@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue的一些其他指令</title>
+    <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- v-once表示只能渲染一次，即不加时可以通过控制台多次更改数据，但加之后只能渲染一次，不能更改 -->
+        <h2>{{message}}</h2>
+        <h2 v-once>{{message}}</h2>
+        <!-- v-html可以解析链接等 -->
+        <h2>{{url}}</h2>
+        <h2 v-html="url"></h2>
+        <!-- v-text跟{{}}差不多，都可以将data中的数据进行绑定，但v-text会覆盖后面的内容 -->
+        <h2>{{message}},lmg</h2>
+        <h2 v-text="message">,lmg</h2>
+        <!-- v-pre表示原样展示，不进行解析 -->
+        <h2 v-pre>{{message}}</h2>
+        <!-- v-cloak -->
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊',
+                url: '<a href="http://www.baidu.com">百度一下</a>'
+            }
+        })
+    </script>
+</body>
+</html>

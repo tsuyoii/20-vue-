@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 有时候父子组件之间除了需要通信传递数据外，还需要进行组件之间的访问
+  例如父组件可以直接调用子组件的方法，获取属性等
+      1、父组件访问子组件：$children或$refs(reference引用)两种方式
+      2、子组件访问父组件：$parent-->
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <cpn></cpn>
+    <cpn></cpn>
+    <cpn></cpn>
+    <cpn></cpn>
+    <!-- 与$refs方法对应 -->
+    <cpn ref="aaa"></cpn>
+    <button @click="btnClick">按钮</button>
+  </div>
+
+  <template id="cpn">
+    <h2>我是子组件</h2>
+  </template>
+  
+  <script>
+    const cpn = {
+      template:'#cpn',
+      data(){
+        return{
+          name:'我是name'
+        }
+      },
+      methods:{
+        showMessage(){
+          console.log("-------------")
+        }
+      }
+    } 
+
+    const app = new Vue({
+      el:'#app',
+      data:{},
+      components:{
+        cpn
+      },
+      methods:{
+        btnClick(){
+          // 但这种数组下标的方式，若前面父模板中的<cpn></cpn>再从中间添加几个的话，下标值就变了
+          console.log(this.$children[3].name)
+          // 调用子组件的showMessage()方法
+          this.$children[2].showMessage()
+
+          // $refs方法:这种方法可以不受下标限制
+          // $refs =>对象类型，默认是一个空的对象，必须在前面的组件上加上ref="xxx"
+          console.log(this.$refs.aaa.name)
+        }
+      }
+    })
+  </script>
+</body>
+</html>

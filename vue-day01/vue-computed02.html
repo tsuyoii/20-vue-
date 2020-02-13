@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue的计算属性computed的复杂操作</title>
+    <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 这时虽然可以用{{books.price[0]+books.price[1]+books.price[2]}},但这样太麻烦，所以用计算属性 -->
+        <!-- 注意：计算属性不需要加小括号，因为totalPrice是当做一个属性来使用的 -->
+        <h2>总价格:{{totalPrice}}</h2>
+    </div>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data:{
+                books:[
+                    {id:100,names:'操作系统',price:119},
+                    {id:101,names:'计算机原理',price:103},
+                    {id:102,name:'计算机网络',price:98}
+                ]
+            },
+            computed:{
+                totalPrice:function(){
+                    let prices = 0
+                    // for(let i in this.books){
+                    //     prices += this.books[i].price
+                    // }
+                    // return prices
+                    for(let book of this.books){
+                        prices += book.price
+                    }
+                    return prices
+                }
+            }
+        })
+    </script>
+</body>
+</html>

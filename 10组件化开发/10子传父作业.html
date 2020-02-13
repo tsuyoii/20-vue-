@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>子传父</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<!-- 子组件做计数器，父组件展示结果 -->
+<body>
+  <div id="app">
+    <!-- <cpn @increse="total++" @decrese="total--"></cpn> -->
+    <!-- 当emit的方法含有参数时，默认传入该参数 -->
+    <cpn @increse="cpnclick" @decrese="cpnclick"></cpn>
+    {{total}}
+  </div>
+  <template id="cpn">
+    <div>
+      <button @click="decresment">-</button>
+      <button @click="incresment">+</button>
+    </div>
+  </template>
+
+  <script>
+    const cpn = {
+      template:'#cpn',
+      data(){
+        return{
+          counter:0
+        }
+      },
+      methods:{
+        decresment(){
+          this.counter--
+          this.$emit('decrese',this.counter)
+        },
+        incresment(){
+          this.counter++
+          this.$emit('increse',this.counter) 
+        }
+      }
+    }
+
+    const app = new Vue({
+      el:'#app',
+      data:{
+        total:0
+        },
+      components:{
+        cpn
+      },
+      methods:{
+        cpnclick(counter){
+          this.total = counter
+        }
+      }
+    })
+  </script>
+</body>
+</html>

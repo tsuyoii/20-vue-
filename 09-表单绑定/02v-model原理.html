@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-model原理讲解</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="message">
+    <!-- v-model指令其实相当于一个语法糖，是两个指令的缩写 -->
+    <!-- v-bind绑定一个属性value并将message变量赋给该属性
+          v-on监听一个事件，input框的input事件表示框中有输入 -->
+    <input type="text" v-bind:value="message" v-on:input="valueChange">
+      <!-- 还可有另一种写法 $event.target.value表示操作浏览器手动获取事件并取得目标值-->
+      <input type="text" :value="message" @input="message=$event.target.value">
+    {{message}}
+  </div>
+  <script>
+    const app = new Vue({
+      el:'#app',
+      data:{
+        message:'你好啊'
+      },
+      methods:{
+        valueChange(event){
+          this.message = event.target.value
+        }
+      }
+    })
+  </script>
+</body>
+</html>

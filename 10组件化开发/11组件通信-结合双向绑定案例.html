@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>父组件传两个值给子组件，子组件用双向绑定改变值时同时改变父组件data,父组件data是绑定到props中的，所以改变父组件data即改变props</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <cpn :pnum1="num1" :pnum2="num2" @num2change="numchange"></cpn>
+  </div>
+
+  <template id="cpn">
+    <div>
+      props1:{{pnum1}}
+      cpndata1:{{pdnum1}}
+      <!-- 1、有的版本这样写会报错,且v-model绑定的一般是data中的值，不能直接绑定props中的值 -->
+      <input type="text" v-model="pdnum1">
+      <br><br>
+      props2:{{pnum2}}
+      cpndata2:{{pdnum2}}
+      <input type="text" :value="pdnum2" @input="numInput">
+    </div>
+  </template>
+  <script>
+    const app = new Vue({
+      el:'#app',
+      data:{
+        num1:1,
+        num2:0
+      },
+      methods:{
+        numchange(pdnum2){
+          this.num2=pdnum2
+        }
+      },
+      components:{
+        cpn:{
+          template:'#cpn',
+          props:{
+            pnum1:Number,
+            pnum2:Number
+          },
+          data(){
+            return{
+              pdnum1:this.pnum1,
+              pdnum2:this.pnum2
+            }
+          },
+          // watch属性监听一些属性的值改变，参数一般有新值，旧值
+          // 注意：这里要监听哪个，就直接用该属性名字，不能随便起其他名字
+          watch:{
+            pdnum2(newValue,oldvalue){
+              this.pdnum1 = newValue*100;
+              this.$emit('num2change',newValue)
+            }
+          },
+          methods:{
+            numInput(event){
+              // 获取input框中输入的值，将其value赋给pdnum2
+              this.pdnum2 = event.target.value
+
+              // 子组件数据更新要使父组件同时更新，子传父，需要$emit一个事件
+              this.$emit('num2change',this.pdnum2)
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

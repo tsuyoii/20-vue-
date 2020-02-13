@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-on参数的传递与使用</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 1、事件调用的方法没有参数 -->
+    <button @click="btn1click()">按钮一</button>
+    <!-- 等价于 可以省略小括号-->
+    <button @click="btn2click">按钮二</button>
+
+    <!-- 2、在事件定义中，如果需要传入参数，要写小括号,如果没有小括号，Vue会默认将浏览器生产的event事件对象做为参数传入到方法
+    如果有小括号，但没有传入参数，这时，会将undefined当做形参直接传入，不会报错 -->
+    <!-- 传入event -->
+    <button @click="btn3click">按钮三</button>
+    <!-- 传入undefined -->
+    <button @click="btn4click()">按钮四</button>
+    <button @click="btn5click('abc')">按钮五</button>
+
+    <!-- 3、当需要传递多个参数，需要传递event对象，同时又需要其他参数时，可以通过$event来手动的获取到浏览器参数的event对象 -->
+    <button @click="btn6click('abc',$event)">按钮六</button>
+    <!-- 两个都传入undefined -->
+    <button @click="btn6click()">按钮六</button>
+    <!-- 第一个参数默认问event事件对象，后面一个看做undefined -->
+    <button @click="btn6click">按钮六</button>
+      <!-- abc没有引号，这里会看做一个变量而不是字符串，data中没有abc变量的值会报错
+      另一方面，直接写event好像并没有错误，可能是更新了版本后，不用$也可以手动获取event参数 -->
+    <button @click="btn6click(abc,event)">按钮六</button>
+  </div>
+  <script>
+    const app = new Vue({
+      el:'#app',
+      data:{
+      },
+      methods:{
+        btn1click(){
+          console.log('第一个按钮被点击了')
+        },
+        btn2click(){
+          console.log('第二个按钮被点击了')
+        },
+        btn3click(event){
+          console.log('第三个按钮被点击了'+event)
+        },
+        btn4click(name){
+          console.log('第四个按钮被点击了'+name)
+        },
+        btn5click(name){
+          console.log('第五个按钮被点击了'+name)
+        },
+        btn6click(name,event){
+          console.log('第六个按钮被点击了'+name+'-----'+event)
+        },
+      }
+    })
+  </script>
+</body>
+</html>

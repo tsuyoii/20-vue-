@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 有时候父子组件之间除了需要通信传递数据外，还需要进行组件之间的访问
+  例如父组件可以直接调用子组件的方法，获取属性等
+      1、父组件访问子组件：$children或$refs(reference引用)两种方式
+      2、子组件访问父组件：$parent
+      3、访问根组件：$root-->
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <cpn></cpn>
+  </div>
+
+  <template id="cpn">
+    <!-- 注意这里不能忘写div，被坑了好多次了 -->
+    <div>
+    <h2>我是子组件</h2>
+    <!-- 子组件来访问父组件，所以按钮在子组件 -->
+    <button @click="btnClick">按钮</button>
+  </div>
+  </template>
+  
+  <script>
+    const cpn = {
+      template:'#cpn',
+      data(){return{}},
+      methods:{
+        btnClick(){
+          // 访问父组件
+          console.log(this.$parent.name)
+
+          // 访问根组件
+          console.log(this.$root.name)
+        }
+      }
+    } 
+
+    const app = new Vue({
+      el:'#app',
+      data:{
+        name:'我是name'
+      },
+      components:{
+        cpn
+      },
+      methods:{}
+    })
+  </script>
+</body>
+</html>

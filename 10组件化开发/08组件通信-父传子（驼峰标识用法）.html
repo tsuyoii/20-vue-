@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- html中不支持大小写，所以驼峰命名时需要将大写的地方改为-连接符加小写 -->
+    <cpn :c-my-info="info"></cpn>
+  </div>
+
+  <template id="cpn">
+    <div>
+      <h2>{{cMyInfo}}</h2>
+    </div>
+  </template>
+
+  <script>
+    // 子组件
+    const cpn = {
+      template:'#cpn',
+      // props:['cmyinfo']
+      props:{
+        cMyInfo:{
+          type:Object,
+          default(){
+            return {
+              name:'nihao'
+            }
+          }
+        }
+      }
+    }
+
+    const app = new Vue({
+      el:'#app',
+      data:{
+        info:{
+          name:'konan',
+          age:17,
+          country:'nihon'
+        }
+      },        
+      components:{
+          // 对象增强语法
+          cpn
+        }
+
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue组件的注册与基本使用</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 3、使用组件 -->
+    <mycom></mycom>
+    <mycom2></mycom2>
+  </div>
+  <!-- 无挂载，没效果，浏览器不认识该标签 -->
+  <mycom></mycom>
+  <div id="app2">
+    <!-- 全局组件可以使用 -->
+    <mycom></mycom>
+    <!-- 局部组件，在这里无法使用 -->
+    <mycom2></mycom2>
+  </div>
+  <script>
+    // 1、创建组件构造器对象:注conConstrocter只是随便起的名字
+    const conConstrocter = Vue.extend({
+      template:`
+        <div>
+          <h2>我是标题</h2>
+          <p>我是内容</p>
+        </div>
+      `
+    })
+    // 2、注册组件(全局组件：可以在多个Vue实例下使用):注：注册组件不能使用驼峰命名法
+    Vue.component('mycom',conConstrocter)
+    // Vue实例
+    const app = new Vue({
+      el:'#app',
+      // 局部组件：只可以在该实例下使用,如：在这里注册的只能在app的div实例下使用
+      components:{
+        mycom2:conConstrocter
+      }
+    })
+
+    const app2 = new Vue({
+      el:'#app2'
+    })
+  </script>
+</body>
+</html>

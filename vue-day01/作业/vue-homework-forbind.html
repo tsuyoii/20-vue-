@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>作业01</title>
+    <script src="../../scripts/vue.min.js"></script>
+</head>
+<!-- 作业需求：初始时列表首项为红色，其余黑色，当点击其他项时，点击哪项哪项变红 -->
+<style>
+    .getRed{
+        color:crimson;
+    }
+</style>
+<body>
+    <div id="app">
+        <ul>
+            <!-- 当触发itemClick的时候，才会
+            将index的值赋给currentindex,否则其一直为原来的index值，表达式currentindex===index为false -->
+            <li v-for="(item,index) in movies"
+             :class="{getRed:currentindex === index}" 
+             @click="itemClick(index)">{{index}}-{{item}}</li>
+        </ul>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data:{
+                movies:['火影忍者','名侦探柯南','月刊少女野崎君','排球少年','暗杀教室'],
+                currentindex:0
+            },
+            methods:{
+                itemClick:function(index){
+                    console.log(this.movies[index])
+                    console.log(index)
+                    this.currentindex = index
+                }
+            }
+        })
+    </script>
+</body>
+</html>

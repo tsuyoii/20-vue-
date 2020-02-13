@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>变量的作用域</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- cpn会展示，因为这里的isShow是在div模板（父组件模板）中，所以会在父组件的data中寻找变量值
+    虽然该语句是在子组件cpn中，但isShow是绑定父组件中的，而v-show就是子组件cpn中的属性了，就像之前的
+  <cpn :cmovies="movies">   cmovies是cpn中的变量，与父组件中的movies变量绑定 -->
+    <!-- 同理若该语句出现在子组件template的div中，则不会显示，因为是在子组件的data中寻找变量值 -->
+    <cpn v-show="isShow"></cpn>
+  </div>
+
+  <template id="cpn">
+    <div>
+      <h2>我是子组件</h2>
+    </div>
+  </template>
+
+  <script>
+    const app = new Vue({
+      el:'#app',
+      data:{
+        isShow:true
+      },
+      components:{
+        cpn:{
+          template:'#cpn',
+          data(){
+            return{
+              isShow:false
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

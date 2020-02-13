@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>子组件与父组件的基本使用</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <conc2></conc2>
+    <!-- 不可以直接使用conC1组件，因为conC1没有直接在Vue实例中或全局注册过 -->
+    <!-- <conc1></conc1> -->
+  </div>
+  <script>
+    // 1、创建第一个组件（子组件，在其他组件内被注册）
+    const conC1 = Vue.extend({
+      template:`
+        <div>
+          <h2>我是标题1</h2>
+          <p>我是内容</p>
+        </div>
+      `
+    })
+    // 2、创建第二个组件,(父组件，内部含有其他组件的注册)
+    const conC2 = Vue.extend({
+      template:`
+        <div>
+        // 在这里使用conC1组件
+          <conc1></conc1>
+          <h2>我是标题2</h2>
+          <p>我是内容,呵呵呵</p>
+        </div>
+      `,
+      components:{
+        conc1:conC1
+      }
+    })
+    // 3、root组件，即一般可将Vue实例看做根组件,可以看做conC2的父组件，conC1的爷爷组件，根组件
+    const app = new Vue({
+      el:'#app',
+      components:{
+        conc2:conC2
+      }
+    })
+  </script>
+</body>
+</html>

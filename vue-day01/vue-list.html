@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+    <div id="app1">
+        <ul>
+            <!-- 快捷键ul>li 回车 -->
+            <li v-for="item in movies">{{item}}</li>
+        </ul>
+    </div>
+    <script>
+        var app = new Vue({        //控制台要展示movies是app.movies而不是app1.movies
+            el:'#app1',
+            data:{
+                movies:['火影忍者','名偵探柯南','排球少年']
+            }
+        });
+    </script>
+</body>
+</html>

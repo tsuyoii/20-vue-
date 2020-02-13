@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <!-- :key绑定的是与后面要展示的内容一致 -->
+      <!-- <li v-for="item in movies" :key="index">{{item}}</li>由于从中间添加元素的话会造成index改变，
+        意义不大
+      注意：key绑定的要像主键一样，不能重复，否则会报错 -->
+
+      <!-- app.movies.splice(2,0,'e')可以实现在movies列表从第二个开始，删除0个，再添加元素'e' -->
+      <li v-for="item in movies" :key="item">{{item}}</li>
+    </ul>
+  </div>
+  <script>
+    const app = new Vue({
+      el:'#app',
+      data:{
+        movies:['火影忍者','名偵探柯南','排球少年']
+      }
+    })
+  </script>
+</body>
+</html>

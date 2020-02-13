@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-bind动态绑定class(数组语法)</title>
+    <script src="../scripts/vue.min.js"></script>
+    <style>
+        .active{
+            color:brown;
+        }
+        .aaaaa{
+            color:cadetblue;
+        }
+        .line{
+            background-color: cornflowerblue;
+        }
+    </style>
+</head>
+<body>
+    <!-- 数组语法 -->
+    <div id="app">
+        <!-- 带单引号是直接当做字符串，即class绑定的是active,line样式 -->
+        <h2 :class="['active','line']">{{message}}</h2>
+        <!-- 不带单引号的是当做变量，从data中取值aaaaa做class所绑定的样式 -->
+        <h2 class="tige" :class="[active,line]">{{message}}</h2>
+        <!-- 还可写入methods或computed中 -->
+        <h2 :class="getClasses()">{{message}}</h2>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data:{
+                message:'hello',
+                active:'aaaaa',
+                line:'line'
+            },
+            methods:{
+                getClasses:function(){
+                    return [this.active,this.line]
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-on修饰符的使用</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 1、.stop修饰符阻止冒泡事件 -->
+    <div @click="divClick">
+      aaaaaaa
+      <!-- 直接点button时由于冒泡事件，会同时触发btnClick，divClick,-->
+      <button @click="btnClick">按钮一</button>
+      <!-- 为了阻止冒泡事件，让按钮点击时只触发btnClick,点击aaaaaaa时才触发divClick,使用.stop修饰符 -->
+      <button @click.stop="btnClick">按钮一</button>
+    </div>
+
+    <!-- 2、.prevent阻止默认事件 -->
+    <!-- 这里一点击提交按钮就会默认提交跳转，为了阻止提交和跳转 -->
+    <form action="baidu">
+      <input type="submit" value="提交" @click.prevent="submitClick">
+    </form>
+
+    <!-- 3、监听某个键盘的键帽 -->
+    <!-- 例如.enter表示按下enter键触发事件keyup -->
+    <input type="text" @keyup.enter="keyup">
+
+    <!-- 4、.once修饰符的使用 -->
+    <!-- 限制只能点击第一次有用，后面几次点击无效果，在防止重复提交的应用上很有用 -->
+    <button @click.once="btn2Click">按钮2</button>
+  </div>
+  <script>
+    const app = new Vue({
+      el:'#app',
+      data:{
+
+      },
+      methods:{
+        divClick(){
+          console.log("divClick");
+        },
+        btnClick(){
+          console.log('btnClick')
+        },
+        submitClick(){
+          console.log('submitClick')
+        },
+        keyup(){
+          console.log('keyup')
+        },
+        btn2Click(){
+          console.log('btn2Click')
+        }
+      }
+    })
+  </script>
+</body>
+</html>

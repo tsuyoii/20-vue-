@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>javascript高阶函数的使用</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    // 编程范式：命令式编程/函数式编程
+    // 编程范式：面向对象编程（第一公民：对象）/面向过程编程（第一公民：函数）
+    // 以3个需求的遍历为例，相比于传统的for循环遍历，高阶函数使用起来更为方便
+    // 高阶函数：一个函数的形参还是一个函数，就像数学中的高阶（多次幂），多次函数就是高阶函数
+    // 常用的高阶函数有filter/map/reduce
+      const nums = [10,20,50,33,111,234,323,70,86,32];
+      // 传统方式
+      // 1、需求：查找出数组中小于100的数
+      // let newnums=[];
+      // for(let n of nums){
+      //   if(n<100){
+      //     newnums.push(n)
+      //   }
+      // }
+      // console.log(newnums)
+
+      // // 2、需求：从小于100的数中将每个数扩大2倍
+      // let newnums2=[]
+      // for(let n of newnums){
+      //   newnums2.push(n*2)
+      // }
+      // console.log(newnums2)
+
+      // //3、需求：将数组求和
+      // let total=0
+      // for(let n of newnums2){
+      //    total+=n
+      // }
+      // console.log(total)
+
+
+
+      // 高阶函数方式
+      // 1、filter函数：过滤器
+      // filter(callbackfn: (
+        // value: number, index: number, array: number[]) => 
+        // value is number, thisArg?: any): number[]
+      // filter函数最多接收三个参数，一般接收一个参数，由于是高阶函数，参数一般是一个函数
+        // filter函数中，为待过滤数组每个元素调用一次回调函数，如nums[]共10个元素，因此会调用10次内部function
+        // 返回值为一个boolean值，为true时：函数内部会自动将本次回调的n加入到新的数组中
+        // 为false时：函数内部会自动过滤掉这次的n
+        // 用一个新的数组来接收返回值
+      let newnums = nums.filter(function(n){
+        return n<100
+      })
+      console.log(newnums)
+
+
+      // 2、map函数：映射函数：
+      // map(callbackfn: (value: number, index: number, array: number[]) => any, thisArg?: any): any[]
+      // 与filter函数的用法差不多,不过不要求一定要返回一个boolean值，同样会为数组每个元素调用一次回调函数（即调用7次内部的function函数）
+      let newnums2 = newnums.map(function(n){
+        return n*2
+      })
+      console.log(newnums2)
+
+
+      // 3、reduce函数:对数组中的所有内容进行汇总（相乘或是相加）
+      // 首先同样需要拿到一个数组,reduce与filter,map用法差不多，但是多一个参数，一般写两个参数
+      // reduce(callbackfn: (previousValue: number, currentValue: number,
+      //  currentIndex: number, array: number[]) => number): number
+      // 参数（function(前一个值previousValue,当前的value){},初始值）
+      // 第一次的preValue是初始值，后面每一次的preValue都是前一次函数的返回值，而当前的value值则为每次循环调用时中数组的值
+      // let total = newnums2.reduce(function(preValue,n){
+      //   return 100
+      // },0)
+      //因为 newnums2=[20, 40, 100, 66, 140, 172, 64]
+      //过程：第一次：preValue:0 n:20
+           // 第二次：preValue:100 n:40
+           // 第三次：preValue:100 n:100
+           // 第四次：preValue:100 n:66
+           // 第五次：preValue:100 n:140
+           // 第六次：preValue:100 n:172
+           // 第七次：preValue:100 n:64
+
+      let total = newnums2.reduce(function(preValue,n){
+        return preValue+n
+      },0)
+      console.log(total)
+
+
+      // 链式调用
+      let total1 = nums.filter(function(n){
+        return n<100
+      }).map(function(n){
+        return n*2
+      }).reduce(function(preValue,n){
+        return preValue+n
+      },0)
+      console.log(total1)
+
+      // 更简洁的箭头函数:参数=>返回，多个参数用（）括起来
+      let total2 = nums.filter(n=>n<100).map(n=>n*2).reduce((preValue,n)=>preValue+n)
+      console.log(total2)
+</script>
+</body>
+</html>

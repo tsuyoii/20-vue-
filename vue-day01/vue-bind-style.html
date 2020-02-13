@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue中v-bind动态绑定style的对象语法（绑定属性后其后跟对象）</title>
+    <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- <h2 :style="{key(属性名):value(属性值)}">{{message}}</h2> -->
+        <!-- 50px作为value值必须加单引号，解释成字符串，否则会解释成一个变量而报错 -->
+        <!-- js中不需要加单引号，但是这里添加的单引号可以在编译解释后自动去掉，这里的单引号相当于转义的意思 -->
+        <h2 :style="{fontSize:'100px'}">{{message}}</h2>
+        <h2 :style="{fontSize:finallsize2+'px',color:finallcolor}">{{message}}</h2>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message:'hello',
+                finallcolor:'red',
+                finallsize2:200
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>表单绑定</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- v-model指令实现了双向绑定，即input框与message变量双向绑定，input框中数据更新，message也更新
+    反之，message更新，input中内容也随之更新 -->
+    <input type="text" v-model="message">
+    <!-- 但mustach语法只是单向绑定，即只能将数据data绑定到dom元素，而不能通过操作dom元素改变data
+    除此，v-bind虽也是绑定，但绑定的是属性，也是单向绑定（js到html） -->
+    {{message}}
+  </div>
+  <script>
+    const app = new Vue({
+      el:'#app',
+      data:{
+        message:'你好啊'
+      }
+    })
+  </script>
+</body>
+</html>

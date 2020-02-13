@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<!-- 通过按钮切换用户登录类型 -->
+<body>
+  <div id="app">
+
+    <!-- 这样会有一个小问题，出于性能考虑，Vue底层会将你的真实dom映射为一个虚拟dom写入缓存，最后直接展示这个虚拟dom
+    因此在vue中，如果出现了两个dom中有相同的元素时，vue就不会重新生成一个新的dom，而是直接调用原来生成的那个相同的dom
+    所以在点击切换类型后，虽然label变了，但input中的内容不会变，不会自动清空 -->
+    <span v-if="isUser">
+      <!-- label 的for对应input中的id，当点击label时，input框也会变为聚焦状态 -->
+      <label for="user">用户登录</label>
+      <input type="text" id="user" placeholder="登录名">
+    </span>
+    <span v-else>
+      <label for="admin">管理员登录</label>
+      <input type="text" id="admin" placeholder="登录名">
+    </span>
+    <button @click="isUser=!isUser">切换类型</button>
+
+
+    <br><br><br><br><br>
+    <span v-if="isUser">
+      <!-- 为了解决对input复用问题，可以加一个key标识符来作为标识，当key属性值相同时，就不重新渲染，直接复用，
+      如不同，则需要重新生成input框 -->
+      <label for="user">用户登录</label>
+      <input type="text" id="user" placeholder="登录名" key="user">
+    </span>
+    <span v-else>
+      <label for="admin">管理员登录</label>
+      <input type="text" id="admin" placeholder="登录名" key="admin">
+    </span>
+    <button @click="isUser=!isUser">切换类型</button>
+  </div>
+  <script>
+    const app = new Vue({
+      el:'#app',
+      data:{
+        isUser:true
+      }
+    })
+  </script>
+</body>
+</html>

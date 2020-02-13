@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h2>当前计数：{{counter}}</h2>
+        <h3>{{counter * 2}}</h3>
+        <!-- <button v-on:click="counter++">+</button>
+        <button @click="counter--">-</button> -->
+        <button v-on:click="addition">+</button>
+        <button v-on:click="subtraction">-</button>
+    </div>
+    <script>
+        //1、先不管功能，将两个按钮展示出来
+        //2、实现功能
+        //3、v-for表示遍历，v-on表示事件监听，监听的是click事件，所以在v-on:click
+        //4、@click是v-on:click的一种语法糖，即其简写，让编写者尝点甜头叫语法糖
+        //5、将其归并到方法中methods
+        var app = new Vue({
+            el:'#app',
+            data:{
+                counter:0
+            },
+            methods:{
+                addition:function(){        //addition是一个函数方法，所以是function(){}
+                    // counter++;           //错误，因为el,data,methods全都是属于Vue实例的对象app中的参数
+                                            //如果直接写counter,它会在全局去找，即除非var app = new Vue({})语
+                                            //句之外(之前)定义了counter变量，在对象参数data中声明的counter是无法被
+                                            //同样身为该对象的参数methods发现的
+                    this.counter++;
+                                            //所以这里应该使用this.counter++，因为this表示该对象
+                },
+                subtraction:function(){
+                    // counter--;
+                    this.counter--;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

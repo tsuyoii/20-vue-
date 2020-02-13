@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 静态绑定不推荐 -->
+        <img src="https://img14.360buyimg.com/jdcms/s300x300_jfs/t27091/328/2140082289/106294/28f8defc/5bf835dcNa19f06fc.jpg.webp">
+        <!-- 使用动态绑定属性src        v-bind指令使得编译器将imgUrl解析为变量而不是简单的字符串 -->
+        <img v-bind:src="imgUrl">
+        <!-- 哪个属性需要动态展示就在该属性前添加 -->
+        <a v-bind:href="aHref">百度一下</a>
+        <!-- v-bind的语法糖冒号： -->
+        <a :href="aHref">百度两下</a>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data:{
+                imgUrl:'https://img14.360buyimg.com/jdcms/s300x300_jfs/t27091/328/2140082289/106294/28f8defc/5bf835dcNa19f06fc.jpg.webp',
+                aHref:'http://www.baidu.com'
+            }
+        }) 
+    </script>
+</body>
+</html>

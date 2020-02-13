@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>变量的作用域</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 当需要以不同格式展示相同内容，且这些内容是从子组件传来的 -->
+    <!-- 例如：不想以列表方式，想通过连接符方式展示 -->
+    <cpn>
+      <template slot-scope="slot">
+        <!-- <span v-for="item in slot.abc">{{item}} - </span> -->
+        <!-- join函数将数组转为字符串，并用（）中的符号进行连接 -->
+        <span>{{slot.abc.join('-')}}</span>
+      </template>
+    </cpn>
+  </div>
+
+  <template id="cpn">
+    <div>
+      <!-- 让abc指向PLanguages变量 -->
+      <slot :abc="PLanguages">
+        <ul>
+          <li v-for="item in PLanguages">{{item}}</li>
+        </ul>
+      </slot>
+    </div>
+  </template>
+
+  <script>
+    const app = new Vue({
+      el:'#app',
+      data:{
+
+      },
+      components:{
+        cpn:{
+          template:'#cpn',
+          data(){
+            return{
+              PLanguages:['javascript','c#','java','c','python']
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

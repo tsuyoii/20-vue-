@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>子组件向父组件通信</title>
+  <script src="../scripts/vue.min.js"></script>
+  <!-- 子组件做出了一些操作后，需要传递数据或事件到父组件中
+        这时，我们需要通过使用自定义事件来完成通信
+      之前学习的v-on不仅可以监听dom事件，还可以用于组件中的自定义事件
+        1、在子组件中，通过$emit（）发射触发事件
+        2、在父组件中，通过v-on来监听子组件事件 -->
+</head>
+<body>
+  <!-- 父组件模板 -->
+  <div id="app">
+    <!-- 3、父模板中监听接收发射的事件，当接收到时就触发父组件中的cpnclick方法 -->
+    <cpn @itemclick="cpnclick"></cpn>
+  </div>
+
+  <!-- 子组件模板 -->
+  <template id="cpn">
+    <div>
+      <!-- 1、子组件监听事件，监听到click事件就触发子组件中的btnclick方法，用于发射事件 -->
+      <button v-for="item in categraies" @click="btnClick(item)">{{item.name}}</button>
+    </div>
+  </template>
+
+  <script>
+    // 子组件
+    const cpn = {
+      template:'#cpn',
+      data(){
+        return{
+          categraies:[
+            {id:'aaa',name:'热门推荐'},
+            {id:'bbb',name:'手机数码'},
+            {id:'ccc',name:'城市推荐'}
+          ]
+        }
+      },
+      methods:{
+        // 2、监听到事件就向父组件发射一个事件，发射的事件名为itemclick
+        btnClick(item){
+          this.$emit('itemclick',item)
+        }
+      }
+    }
+
+    const app = new Vue({
+      el:'#app',
+      data:{},
+      components:{
+        cpn
+      },
+      methods:{
+        cpnclick(){
+          console.log('cpnclick')
+        }
+      }
+    })
+  </script>
+</body>
+</html>

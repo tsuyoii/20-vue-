@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>书籍购物车</title>
+  <!-- rel是relation的缩写，指关联到一个stylesheet(样式表单)，type可以省略不写 -->
+  <link  type="text/css" rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <div v-if="books.length">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>书籍名称</th>
+          <th>出版日期</th>
+          <th>价格</th>
+          <th>购买数量</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item,index) in books">
+          <!-- <td v-for="value in item">{{value}}</td> -->
+          <td>{{item.id}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.date}}</td>
+          <!-- <td>{{'￥'+ item.price.toFixed(2)}}</td> 
+          其中.toFixed(2)是一个保留两位小数的函数,为便于复用等原因，我们使用过滤器进行过滤-->
+          <!-- 格式：待过滤属性|过滤器，其中会将前面的待过滤属性作为参数自动传入过滤器，还可以增加复用性 -->
+          <td>{{item.price|showPrice}}</td>
+          <td>
+            <!-- :disabled中:是动态绑定v-bind:的语法糖，disabled表示满足某条件时不可点击 -->
+            <button @click="decrement(index)" :disabled="item.count<=1">-</button>
+            <!-- <button @click="decrement(index)">-</button> -->
+            {{item.count}}
+            <button @click="increment(index)">+</button>
+          </td>
+          <td>
+            <button @click="clear(index)">移除</button>
+          </td>
+        </tr>
+        <!-- <tr v-if="totalPrice">总价：￥{{results}}</tr>
+        <tr v-else>购物车已空</tr>
+      这种展示方式有一点问题 -->
+      <tr>总价：{{results|showPrice}}</tr>
+      </tbody>
+    </table>
+    </div>
+    <h2 v-else>购物车已空</h2>
+  </div>
+    <!-- 下面两个js文件的引入顺序不能颠倒,且必须写到div后面，如果写到了div前面，就无法正确引入 -->
+    <script src="../scripts/vue.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

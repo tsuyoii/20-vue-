@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 这样只能替换没名字的插槽，因此需要给插槽起个名字 -->
+    <cpn><span>标题</span></cpn>
+    <!-- 注意这里不是name属性，否则就变成了给span命名了 -->
+    <cpn><span slot="center">标题</span></cpn>
+    <cpn></cpn>
+  </div>
+
+  <template id="cpn">
+    <div>
+      <slot><span>左边</span></slot>
+      <slot><span>中间</span></slot>
+      <slot><span>右边</span></slot>
+
+<!-- 注意这里name属性是在slot标签里，不是span标签 -->
+      <slot name="left"><span>左边</span></slot>
+      <slot name="center"><span>中间</span></slot>
+      <slot name="right"><span>右边</span></slot>
+    </div>
+  </template>
+
+  <script>
+    const app = new Vue({
+      el:'#app',
+      data:{},
+      components:{
+        cpn:{
+          template:'#cpn'
+        }
+      }
+    })
+  </script>
+</body>
+</html>

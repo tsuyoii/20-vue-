@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue的v-bind绑定style样式的数组语法</title>
+    <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 数组语法[]直接用变量,变量中用单引号 -->
+        <h2 :style="[finallcolor,size]">{{message}}</h2>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message:'hello',
+                finallcolor:{backgroundColor:'red',color:'blue'},
+                size:{fontSize:'200px'}
+            }
+        })
+    </script>
+</body>
+</html>

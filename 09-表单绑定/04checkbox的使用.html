@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-model的checkbox复选框的使用（单个复选框+多个复选框）</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 选定单个的复选框 :boolean类型存值-->
+    <label for="agree">
+      <input type="checkbox" id="agree" value="agree" v-model="isAgree">同意协议
+    </label>
+    <!-- :disabled动态绑定的是是否不可选，当isAgree为false时，取反为true,不可选 -->
+    <button :disabled="!isAgree">下一步</button>
+
+    
+    <!-- 选定多个复选框 :数组类型存值
+      value是所传的值，v-model是传到的位置，绑定一个变量，这里是多选，所以以数组做变量-->
+      <!--通常一个label只对应一个input  -->
+    <input type="checkbox" value="篮球" v-model="hobies">篮球
+      <input type="checkbox" value="足球" v-model="hobies">足球
+      <input type="checkbox" value="排球" v-model="hobies">排球
+    <h2>您选择的爱好是：{{hobies}}</h2>
+
+
+    <!-- 值绑定：动态绑定value，而不是写死 -->
+    <label v-for="item in originHobiies" :for="item">
+      <input type="checkbox" :value="item" :id="item" v-model="hobies">{{item}} 
+    </label>
+  </div>
+  <script>
+    const app = new Vue({
+      el:'#app',
+      data:{
+        isAgree:false,
+        hobies:[],
+        originHobiies:['篮球','乒乓球','足球','台球','羽毛球']
+      }
+    })
+  </script>
+</body>
+</html>

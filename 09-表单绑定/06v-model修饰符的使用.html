@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-model修饰符的使用</title>
+  <script src="../scripts/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 1、lazy修饰符：当不希望数据绑定在每次输入一个字符就绑定更新，过于频繁，可以加此修饰符
+      这样就可以在按回车或点击其他地方失去焦点时再更新 -->
+      <input type="text" v-model.lazy="message1">{{message1}}
+
+
+
+    <!-- 2、number修饰符：在v-model绑定时，会自动将变量都转化为字符串string格式，这时需要添加number修饰符，使其为数值型 -->
+      <input type="number" v-model.number="age">{{typeof age}}
+  
+  
+  
+  <!-- 3、trim修饰符:去除字符串前后的空格，注意中间的空格去不了，且浏览器会自动进行一些处理，看不到空格，需使用控制台
+          app.name查看 -->
+      <input type="text" v-model.trim="name">{{name}}
+    </div>
+  <script>
+    const app  = new Vue({
+      el:'#app',
+      data:{
+        message1:'',
+        age:0,
+        name:''
+      }
+    })
+  </script>
+</body>
+</html>
