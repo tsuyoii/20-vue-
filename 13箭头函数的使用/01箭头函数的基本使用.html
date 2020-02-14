@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>箭头函数的基本使用</title>
+</head>
+<body>
+  <script>
+    // 一、箭头函数：也是一种定义函数的方式
+    // 1、定义函数的方式：function
+    const aaa = function() {
+
+    }
+    // 2、对象字面量中定义函数
+    const obj = {
+      aaa:function(){
+
+      },
+      bbb(){
+
+      }
+    }
+    // 3、ES6中的箭头函数
+    const ccc = (参数列表) => {
+      
+    }
+    // 转二、三
+
+    // 二、参数问题
+    // 1、放入两个参数
+    const sum = function(num1,num2){
+      return num1+num2
+    }
+    // 1等价于（箭头函数写法）
+    const sum = (num1,num2) => {
+      return num1+num2
+    }
+
+
+    // 2、放入一个参数，参数的小括号可以省略
+    const power = function(num){
+      return num*num
+    }
+    // 2的箭头函数写法，参数的小括号可写可省略
+    const power = num =>{
+      return num*num
+    }
+
+
+    //三、返回值的问题
+    // 1、代码块中有多条语句
+    const prin = () => {
+      console.log('hello world')
+      console.log('hi vue')
+    }
+    // 2、代码块中只有一条语句
+    const mul = function(num1,num2) {
+      return num1*num2
+    }
+    // 2、箭头函数写法:只有一条语句的时候，可以省略花括号，直接写该语句
+    const mul = (num1,num2) => num1*num2
+  </script>
+</body>
+</html>

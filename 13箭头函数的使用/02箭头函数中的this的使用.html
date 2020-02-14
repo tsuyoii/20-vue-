@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>箭头函数中的this的使用</title>
+</head>
+<body>
+  
+  <script>
+    // 什么时候使用箭头函数，
+    // 通常在需要将一个函数作为另一个函数的参数时会使用箭头函数，例如
+    setTimeout(function(){
+      console.log(this) //打印的this = window
+    },1000)
+    // 通常写成
+    setTimeout(() => {
+      console.log(this) //打印的this = window
+    },1000)
+
+
+    // 2、箭头函数打印是一层一层往外寻找，引用的是最近作用域中的this
+    const obj = {
+      aaa(){
+        setTimeout(function(){
+          console.log(this) //打印的this = window,只要是这种function格式的this都是window
+        },1000)
+        setTimeout(() => {
+          console.log(this) //打印的this = {aaa:f}是obj对象
+        },1000)
+      }
+    }
+    obj.aaa()
+
+
+    const objec = {
+      aaa(){
+        setTimeout(function(){
+          setTimeout(function(){
+            console.log(this) //打印的this = window,只要是这种function格式的this都是window
+          })
+          setTimeout(() =>{
+              console.log(this) //打印的this = window因为第一层传入的是window，寻找外面一层
+          })
+        })
+
+
+
+        setTimeout(() => {
+          setTimeout(function(){
+            console.log(this) //打印的this = window,只要是这种function格式的this都是window
+          })
+          setTimeout(() =>{
+              console.log(this) //打印的this = {aaa:f}是obj对象
+          })
+        })
+      }
+    }
+  </script>
+</body>
+</html>

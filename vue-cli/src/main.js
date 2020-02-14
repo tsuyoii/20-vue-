@@ -22,43 +22,43 @@ Vue.config.productionTip = false
 // 内部流程：template--(解析)--->ast(abstractor syntax tree抽象语法树)--(编译)-->render--->virtual dom--->真实dom(即UI)
 // components注册组件App,通过template:'<App/>'挂载而template中的代码分离提取到App.vue中
 // 通过vue-loder加载，通过vue-template-compiler编译，可将id为app的div替换为template中的内容
-// new Vue({
-//   el: '#app',
-//   router,
-//   components: { App },
-//   template: '<App/>'
-// })
+new Vue({
+  el: '#app',
+  router,
+  components: { App },
+  template: '<App/>'
+})
 
 
 
-  // runtime only方式(性能更高，代码量更少)
-  const cpn = {
-    template:`
-      <div>{{message}}</div>
-    `,
-    data(){
-      return{
-        message:'我是组件'
-      }
-    }
-  }
+//   // runtime only方式(性能更高，代码量更少)
+//   const cpn = {
+//     template:`
+//       <div>{{message}}</div>
+//     `,
+//     data(){
+//       return{
+//         message:'我是组件'
+//       }
+//     }
+//   }
 
+// // 同样，el中的东西也会被render替换到
+//   new Vue({
+//     el: '#app',
+//     render:h=>h(App)
 
-  new Vue({
-    el: '#app',
-    render:h=>h(App)
-
-  // render函数完整写法
-      // render:function(creatElement){
-        // 1、普通用法
-        // return creatElement('标签',{标签的属性},['元素里的内容'])
-        // return creatElement('h2',{class:'box'},['Hello啊',creatElement('button',['按钮'])])
+//   // render函数完整写法
+//       // render:function(creatElement){
+//         // 1、普通用法
+//         // return creatElement('标签',{标签的属性},['元素里的内容'])
+//         // return creatElement('h2',{class:'box'},['Hello啊',creatElement('button',['按钮'])])
       
-        //2、传入组件对象 
-        // return creatElement(cpn)
-        // App.vue也是一个组件，不过是分离了出去而已
-        // return creatElement(App)
-        // 即等效于
-        // 前面的render:h=>h(App)
-      // }
-  })
+//         //2、传入组件对象 
+//         // return creatElement(cpn)
+//         // App.vue也是一个组件，不过是分离了出去而已
+//         // return creatElement(App)
+//         // 即等效于
+//         // 前面的render:h=>h(App)
+//       // }
+//   })

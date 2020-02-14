@@ -19,7 +19,7 @@
 
 <script>
   export default {
-    name: 'HelloWorld',
+    name: 'Login',
     data(){
       return{
         rules:{
