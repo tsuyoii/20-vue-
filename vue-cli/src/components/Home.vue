@@ -8,7 +8,51 @@
 </template>
 <script>
   export default {
-    name: 'Home'
+    name: 'Home',
+    data(){
+      return{
+        path:'/home/new'
+      }
+    },
+    // 组件被创建出来时调用
+    // 在各组件，如Home.vue,  Login.vue, 
+    //  User.vue,  Profile.vue中都加上此函数即可实现，
+    // 但这样做当组件很多时一个一个改特别麻烦，接下来看方案二
+    // 方案二见router/index.js中的全局导航守卫
+    created(){
+      console.log('created')
+      document.title = '首页'
+    },
+    // // 组件创建完成后，当前面template中的dom元素被挂载到组件上时
+    // mounted(){
+    //   console.log('mounted')
+    // },
+    // // 当页面发生更新时，例如数据双向绑定时更新数据，
+    // 只要界面发生一次刷新，就会到这里来调用updated
+    // updated(){
+    //   console.log('updated')
+    // }
+    destroyed(){
+      console.log('destroyed')
+    },
+    // 直接这样写不会调用，activated和deactivated函数的使用都以keep-alive的使用为前提
+    // 当处于该页面，即该页面激活状态时
+    activated(){
+      console.log('activated')
+      this.$router.push(this.path)
+    },
+    // 当离开该页面时,处于不活跃状态
+    // deactivated(){
+      // console.log('deactivated')
+      // 报错，暂时不知原因
+      // this.path = this.$router.path
+    // },
+    // 组件内导航守卫，用这种方法来保存离开页面前的路由
+    beforeRouteLeave(to,from,next){
+      console.log(this.$route.path)
+      this.path = this.$route.path
+      next()
+    }
   }
 </script>
 <style scoped>

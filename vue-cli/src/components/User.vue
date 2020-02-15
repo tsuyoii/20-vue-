@@ -5,6 +5,7 @@
   <!-- 为了能根据页面url后面获取的动态路由对应取到界面内容的信息
   需要用到$route.params.xxx方法获取信息，详见computed计算属性中的内容 -->
   <p>{{userId}}</p>
+  <button @click="userBtnClick">User.vue按钮</button>
 </div>
 </template>
 
@@ -29,6 +30,18 @@ computed:{
     //     2、params是parameters（参数）的简写
     //     3、user_id是对应着router/index.js中配置动态路由与组件时起的名字
     return this.$route.params.user_id;
+  }
+},
+created(){
+  console.log('User created')
+},
+destroyed(){
+  console.log('User destroyed')
+},
+methods:{
+  userBtnClick(){
+    console.log(this.$router)
+    console.log(this.$route)
   }
 }
 }

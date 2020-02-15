@@ -34,6 +34,12 @@
         loading:false
       }
     },
+    created(){
+      console.log('Login created')
+    },
+    destroyed(){
+      console.log('Login destroyed')
+    },
     methods:{
       login(){
         var _this=this

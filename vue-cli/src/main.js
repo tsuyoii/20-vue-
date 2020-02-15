@@ -29,7 +29,8 @@ new Vue({
   template: '<App/>'
 })
 
-
+// console.log(router)
+// console.log(route)
 
 //   // runtime only方式(性能更高，代码量更少)
 //   const cpn = {

@@ -52,7 +52,29 @@
       为了将data中的数据动态绑定给属性，使用v-bind:  (v-model是双向绑定，既绑定还监听)-->
       <!-- 引号表示真实不变的字符串，后面+连接一个动态改变的变量 -->
       <router-link :to="'/user/'+user_id">用户</router-link>
+      <!--
+      3、动态获取动态路由对应的组件详细信息：
+      普通的to="/home"也可以写成to="{path:'/home'}"动态绑定只是在to属性上添加了v-bind指令
+      为了能获取更多信息，直接传入一个对象{}，其中query表示查询，将展现在url的?后面
+      url:协议scheme://host:port/path?query
+      -->
+      <router-link :to="{path:'/profile',query:{name:'konan',age:17,height:1.60}}">
+      档案</router-link>
+      <!-- 
+      4、通过按钮来监听事件进行跳转
+       -->
+      <button @click="userClick">用户</button>
+      <button @click="profileClick">档案</button>
+<!-- keep-alive标签的使用用于使组件不用频繁被销毁 -->
+<!-- 当我们不希望某个组件进行缓存，
+      希望它每次切换都创建或销毁时，可以在keep-alive标签
+      中添加属性include或exclude -->
+      <!-- 这里引用组件的名字name即可，注意：多组件之间不能加空格 -->
+  <keep-alive exclude="Profile,User">    
    <router-view/>
+  </keep-alive>
+
+
   </div>
 </template>
 
@@ -74,6 +96,20 @@ export default {
     btnLogin(){
       this.$router.push('login')
       // this.$router.replace('/login')
+    },
+    userClick(){
+      this.$router.push('/user/' + this.user_id)
+    },
+    profileClick(){
+      // 同样，传入一个对象
+      this.$router.push({
+        path:'/profile',
+        query:{
+          name:'kobe',
+          age:19,
+          height:1.87
+        }
+      })
     }
   }
 }
