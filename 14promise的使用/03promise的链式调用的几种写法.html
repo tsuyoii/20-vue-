@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 需求：
+    //    网络请求获得数据：aaa  ->先自己处理
+    //    第一层处理：aaa111(要求在数据后面跟上111)  ->自己处理然后提交下一步处理
+    //    第二层处理：aaa111222  ->自己处理
+    // new Promise((resolve,reject) => {
+    //   setTimeout(() => {
+    //     resolve('aaa')
+    //   },1000)
+    // }).then(res => {
+    //   // 1、第一次自己处理，res是resolve的简写，表示resolve传入的参数
+    //   console.log(res,'第一层的自己处理代码')
+
+    //   // 2、对结果第一次处理,这里的reject没有用到，所以就省略了
+    //   return new Promise((resolve) => {
+    //     resolve(res + '111')
+    //   })
+    // }).then(res => {
+    //   console.log(res,'第二层的自己处理代码')
+
+    //   return new Promise(resolve => {
+    //     resolve(res + '222')
+    //   })
+    // }).then(res => {
+    //   console.log(res, '第三层的自己处理代码')
+    // })
+
+
+
+    // 简写一:直接return Promise.resolve()
+    // new Promise((resolve,reject) => {
+    //   setTimeout(() => {
+    //     resolve('aaa')
+    //   },1000)
+    // }).then(res => {
+    //   console.log(res,'第一层的自己处理代码')
+
+    //   return Promise.resolve(res + '111')
+    // }).then(res => {
+    //   console.log(res,'第二层的自己处理代码')
+
+    //   return Promise.resolve(res + '222')
+    // }).then(res => {
+    //   console.log(res, '第三层的自己处理代码')
+    // })
+
+
+
+    // 简写二：省略掉Promise.resolve,直接写resolve中的参数作为返回值，其会自动将其封装在Promise中，
+    // 并调用resolve方法
+    // new Promise((resolve,reject) => {
+    //   setTimeout(() => {
+    //     resolve('aaa')
+    //   },1000)
+    // }).then(res => {
+    //   console.log(res,'第一层的自己处理代码')
+
+    //   return res + '111'
+    // }).then(res => {
+    //   console.log(res,'第二层的自己处理代码')
+
+    //   return res + '222'
+    // }).then(res => {
+    //   console.log(res, '第三层的自己处理代码')
+    // })
+
+
+    // 不一定每次都是resolve,当出现reject时，将不再执行.then，而是直接跳转到.catch执行
+    // new Promise((resolve,reject) => {
+    //   setTimeout(() => {
+    //     resolve('aaa')
+    //   },1000)
+    // }).then(res => {
+    //   console.log(res,'第一层的自己处理代码')
+
+    //   return Promise.reject('errrr')
+    // }).then(res => {
+    //   console.log(res,'第二层的自己处理代码')
+
+    //   return res + '222'
+    // }).then(res => {
+    //   console.log(res, '第三层的自己处理代码')
+    // }).catch(err => {
+    //   console.log(err)
+    // })
+
+
+    // 简写四：可以通过throw直接手动抛出异常，进入catch()
+    new Promise((resolve,reject) => {
+      setTimeout(() => {
+        resolve('aaa')
+      },1000)
+    }).then(res => {
+      console.log(res,'第一层的自己处理代码')
+
+     throw 'errrr message'
+    }).then(res => {
+      console.log(res,'第二层的自己处理代码')
+
+      return res + '222'
+    }).then(res => {
+      console.log(res, '第三层的自己处理代码')
+    }).catch(err => {
+      console.log(err)
+    })
+  </script>
+</body>
+</html>
