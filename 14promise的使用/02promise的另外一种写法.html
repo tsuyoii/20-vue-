@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- promise除了第一个文件中的写法new Promise(() =>{}).then().catch()
+       还有另外一种写法如下：
+       new Promise().then(函数1，函数2)
+      其中函数1相当于.then(),函数2相当于.catch()-->
+  <script>
+    new Promise((resolve,reject) => {
+      setTimeout(() => {
+        // resolve('Hello world')
+        reject('err message')
+      })
+    }).then(data =>{
+      console.log(data)
+    },err =>{
+      console.log(err)
+    })
+  </script>
+</body>
+</html>
