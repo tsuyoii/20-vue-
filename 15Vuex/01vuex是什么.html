@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 你可以想象这样一个场景：
+有十多个组件想要共享同一个状态（这里可以先暂时理解为变量，因为变
+量可以保存状态信息等），如果放到一个组件中的话，其他组件访问可能
+需要跨越很多其他组件，历经千辛才能获取使用，这样就会造成很多不方便，
+这时如果能有一个中转站能来统一管理就好了，于是就有了vuex，vuex作为一个
+状态管理模式，就像一座大宅邸里的一个大管家一样，将少爷主子们（组件）进行
+集中式管理，并实时管理着一些状态（或变量等），有谁需要，谁就可以直接去大
+管家那里拿来用，除此之外，vuex还可以实现响应式，即组件不仅可以访问状态或
+变量，还可以进行更改，并且因为vuex的管理是响应式的，一旦数据更改，界面会
+实时跟着刷新。 -->
+
+<script>
+  const shareObj = {
+    name:'konan'
+  }
+// 所有组件都自动继承vue的原型，利用prototype原型添加一个共享对象
+  Vue.prototype.shareObj = shareObj
+
+// 但是当shareObj中的内容变化时，组件中的数据不会跟着改变，这样就做不到响应式
+  Vue.component('cpn1',{
+    template:'',
+  })
+
+  Vue.component('cpn2',{
+
+  })
+  const app = new Vue({
+    el:'#app',
+    data:{
+
+    }
+  })
+</script>
+</body>
+</html>
