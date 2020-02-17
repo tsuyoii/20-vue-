@@ -19,11 +19,29 @@ const store = new Vuex.Store({
   },
   mutations:{
     // 方法，默认会传入state
+    // mutation可以更改值，但getters一般只是计算并返回值
+    // increment称为事件类型，后面的(state){}是回调函数
     increment(state){
       state.counter++
     },
     decrement(state){
       state.counter--
+    },
+    // // 传入一个参数
+    // incrementCount(state,count){
+    //   state.counter += count
+    // },
+
+        // 传入一个参数的type写法
+        // 这里因为从type提交封装，传入参数是一整个对象，不适宜使用其中的参数，如果传入的对象中还有其他变量？
+        // 不可能将其做另一个参数传，因此，这里一般用playload（负载）做对象参数，调用其中的变量
+        incrementCount(state,playload){
+          state.counter += playload.counts
+        },
+
+    // 传入对象作为参数
+    addStu(state,stu){
+      state.students.push(stu)
     }
   },
   actions:{
