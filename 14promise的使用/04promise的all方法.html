@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 当遇到需要多个异步请求时，例如，需要获取到两次异步请求的结果后才能进行相应的操作,这时就可以
+    // 使用promise的all方法来处理
+    // 因为没有安装jQuery,无法使用$ajax,这里我使用setTimeout来模拟异步请求
+    // promise.all(iterator迭代，即可遍历的)
+    // 当两个异步请求的结果都成功获取后，就会自动调用.all([])的.then(),传入一个数组名为results
+    Promise.all([
+      new Promise((resolve,reject) => {
+        setTimeout(() =>{
+          resolve({name:'konan',age:17})
+        },1000)
+      }),
+      new Promise((resolve,reject) => {
+         setTimeout(() => {
+           resolve({first:'ittawa',hobby:'football'})
+         })
+      })
+    ]).then(results => {
+      console.log(results[0])
+      console.log(results[1])
+      console.log(results)
+    })
+  </script>
+</body>
+</html>
