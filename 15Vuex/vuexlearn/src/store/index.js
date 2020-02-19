@@ -1,8 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { INCREMENT } from './mutation_type'
 
 // 1、安装插件
 Vue.use(Vuex)
+
+// 创建modules
+const moduleB = {
+  state:{},
+  getters:{},
+  mutations:{},
+  // 等等
+}
 
 // 2、创建对象
 // 注意store要小写
@@ -15,15 +24,25 @@ const store = new Vuex.Store({
       {id:111,name:'two',age:20},
       {id:112,name:'three',age:10},
       {id:113,name:'four',age:32},
-    ]
+    ],
+    info:{
+      name:'naruto'
+    }
   },
   mutations:{
     // 方法，默认会传入state
     // mutation可以更改值，但getters一般只是计算并返回值
     // increment称为事件类型，后面的(state){}是回调函数
-    increment(state){
+    // increment(state){
+    //   state.counter++
+    // },
+
+    // 类型常量
+    // import { INCREMENT } from './mutation_type'
+    [INCREMENT](state){
       state.counter++
     },
+
     decrement(state){
       state.counter--
     },
@@ -42,10 +61,35 @@ const store = new Vuex.Store({
     // 传入对象作为参数
     addStu(state,stu){
       state.students.push(stu)
+    },
+    updateInfo(state){
+      state.info.name='itachi'
     }
   },
   actions:{
-    // 异步请求
+    // 异步请求,只要是有异步操作的，必须在actions中多这样一群代码
+    // context上下文，是actions中的默认参数
+    // actions中commit  mutations中的事件类型
+    // 在使用时，vue组件中的methods中要通过this.$store.dispatch('aUpdateInfo')
+    aUpdateInfo(context,payload){
+      // setTimeout(() => {
+      //   context.commit('updateInfo',payload)
+      //   console.log(payload.message)
+      //   payload.success()
+      // })
+
+
+      // 写法二、
+      return new Promise((resolve,reject) => {
+        setTimeout(() => {
+          context.commit('updateInfo')
+          console.log(payload)
+          resolve('参数')
+        })
+      })
+
+
+    }
   },
   getters:{
     // 类似于单个组件中的计算属性,可以想象成计算器，计算器一般是对一些数据进行处理，计算后返回
@@ -78,7 +122,24 @@ const store = new Vuex.Store({
     // 使用过程均可查看HelloVuex.vue
   },
   modules:{
+    // 模块
+    // 有时为了能够将某些模块单独抽离出来，可以在modules中写多个模块
+    a:{
+      state:{
+        name:'peien'
+      },
+      getters:{},
+      mutations:{},
+      actions:{}
+      // 等等
+    },
+    b:moduleB
 
+    // modules的使用
+    // {{$store.state.a.name}}
+    // getters的使用基本相同，但还可以添加一个参数rootState，表示根的状态，即store的state
+    // actions的使用，传入的参数context是上下文的意思，所以在模块中的context.commit,提交的是模块中的东西
+    // 如果想拿到根里的东西时，可以通过root来拿，例如context.rootGetters,rootStates等
   }
 })
 
