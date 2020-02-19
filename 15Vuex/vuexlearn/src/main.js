@@ -181,6 +181,20 @@ new Vue({
 
 
 // 对应的写法四
+// request({
+//   url:''
+// }).then(res => {
+
+// }).catch(err => {
+  
+// })
+
+
+
+
+
+
+// 有拦截器时对应的使用写法也是如此，如果baseURL后面还有其他参数的话可以直接在这里的url中进行拼接
 request({
   url:''
 }).then(res => {
